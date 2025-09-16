@@ -1,3 +1,8 @@
 {
-  "ignoreCommand": "npx turbo-ignore"
+  "build": {
+    "env": {
+      "APP_NAME": "jazz-react-tailwind-starter"
+    }
+  },
+  "ignoreCommand": "node ../../ignore-vercel-build.js"
 }

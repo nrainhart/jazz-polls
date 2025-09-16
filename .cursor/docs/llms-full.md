@@ -1839,13 +1839,13 @@ export const MyAppAccount = co.account({
   root: MyAppRoot,
   profile: MyAppProfile,
 }).withMigration((account, creationProps?: { name: string }) => {
-  if (account.root === undefined) {
+  if (!account.$jazz.has("root")) {
     account.root = MyAppRoot.create({
       pets: co.list(Pet).create([]),
     });
   }
 
-  if (account.profile === undefined) {
+  if (!account.$jazz.has("profile")) {
     const profileGroup = Group.create();
     profileGroup.addMember("everyone", "reader");
 
@@ -2535,7 +2535,7 @@ export const MyAppAccount = co.account({
 }).withMigration((account, creationProps?: { name: string }) => {
   // we specifically need to check for undefined,
   // because the root might simply be not loaded (`null`) yet
-  if (account.root === undefined) {
+  if (!account.$jazz.has("root")) {
     account.root = MyAppRoot.create({
       // Using a group to set the owner is always a good idea.
       // This way if in the future we want to share
@@ -2544,7 +2544,7 @@ export const MyAppAccount = co.account({
     });
   }
 
-  if (account.profile === undefined) {
+  if (!account.$jazz.has("profile")) {
     const profileGroup = Group.create();
     // Unlike the root, we want the profile to be publicly readable.
     profileGroup.addMember("everyone", "reader");
@@ -2588,7 +2588,7 @@ export const MyAppAccount = co.account({
   root: MyAppRoot,
   profile: MyAppProfile,
 }).withMigration(async (account) => {
-  if (account.root === undefined) {
+  if (!account.$jazz.has("root")) {
     account.root = MyAppRoot.create({
       myChats: co.list(Chat).create([], Group.create()),
     });
@@ -4942,7 +4942,7 @@ const MyAccount = co.account({
 });
 
 MyAccount.withMigration((account, creationProps) => {
-  if (account.profile === undefined) {
+  if (!account.$jazz.has("profile")) {
     const profileGroup = Group.create();
     profileGroup.addMember("everyone", "reader");
     account.profile = MyProfile.create(
@@ -7518,7 +7518,7 @@ export const JazzAccount = co.account({
   root: AccountRoot,
   profile: co.map({ name: z.string() }),
 }).withMigration((account, creationProps?: { name: string }) => {
-  if (account.root === undefined) {
+  if (!account.$jazz.has("root")) {
     const draft = DraftBubbleTeaOrder.create({});
 
     account.root = AccountRoot.create({ draft });
@@ -7548,7 +7548,7 @@ export const JazzAccount = co.account({
   root: AccountRoot,
   profile: co.map({ name: z.string() }),
 }).withMigration((account, creationProps?: { name: string }) => {
-  if (account.root === undefined) {
+  if (!account.$jazz.has("root")) {
     const draft = DraftBubbleTeaOrder.create({});
 
     account.root = AccountRoot.create({ draft });
@@ -7603,7 +7603,7 @@ export const JazzAccount = co.account({
   root: AccountRoot,
   profile: co.map({ name: z.string() }),
 }).withMigration((account, creationProps?: { name: string }) => {
-  if (account.root === undefined) {
+  if (!account.$jazz.has("root")) {
     const draft = DraftBubbleTeaOrder.create({});
 
     account.root = AccountRoot.create({ draft });
@@ -7755,7 +7755,7 @@ export const JazzAccount = co.account({
   root: AccountRoot,
   profile: co.map({ name: z.string() }),
 }).withMigration((account, creationProps?: { name: string }) => {
-  if (account.root === undefined) {
+  if (!account.$jazz.has("root")) {
     const draft = DraftBubbleTeaOrder.create({});
 
     account.root = AccountRoot.create({ draft });
@@ -7893,7 +7893,7 @@ export const JazzAccount = co
     profile: co.profile(),
   })
   .withMigration((account) => {
-    if (account.root === undefined) {
+    if (!account.$jazz.has("root")) {
       // Using a Group as an owner allows you to give access to other users
       const organizationGroup = Group.create();
 
@@ -8090,7 +8090,7 @@ export const MusicaAccount = co
      *  The account migration is run on account creation and on every log-in.
      *  You can use it to set up the account root and any other initial CoValues you need.
      */
-    if (account.root === undefined) {
+    if (!account.$jazz.has("root")) {
       const tracks = co.list(MusicTrack).create([]);
       const rootPlaylist = Playlist.create({
         tracks,

@@ -49,7 +49,7 @@ export const AppAccount = co
   })
   .withMigration((account) => {
     // Initialize root if it doesn't exist
-    if (account.root === undefined) {
+    if (!account.$jazz.has("root")) {
       account.root = AppRoot.create({
         mainData: {
           // Initialize with default values
@@ -64,7 +64,7 @@ export const AppAccount = co
     }
 
     // Initialize profile if it doesn't exist
-    if (account.profile === undefined) {
+    if (!account.$jazz.has("profile")) {
       const group = Group.create();
       group.addMember("everyone", "reader"); // Profile visible to everyone
       
@@ -97,13 +97,13 @@ export const AppAccount = co
 ```typescript
 .withMigration((account) => {
   // Always check if data exists before creating
-  if (account.root === undefined) {
+  if (!account.$jazz.has("root")) {
     account.root = AppRoot.create({
       // Initialize with sensible defaults
     });
   }
   
-  if (account.profile === undefined) {
+  if (!account.$jazz.has("profile")) {
     const group = Group.create();
     group.addMember("everyone", "reader");
     
