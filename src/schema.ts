@@ -1,5 +1,10 @@
 import { Group, co, z } from "jazz-tools";
 
+/**
+ * ID del grupo que es dueño de la encuesta global
+ */
+const ID_GRUPO_MAESTRO = "co_zWftKygoVvHw69JaV4g2KYw6mbh";
+
 export const CasaDeHogwarts = z.enum([
   "Gryffindor",
   "Hufflepuff",
@@ -41,8 +46,13 @@ export const JazzAccount = co
      */
 
     // Los grupos controlan quién puede leer y escribir en los CoValues
-    const grupoPublico = Group.create();
-    grupoPublico.addMember("everyone", "writer"); // Todos pueden votar
+    let grupoPublico = await Group.load(ID_GRUPO_MAESTRO);
+    if (!grupoPublico) {
+      // Si no se encuentra el grupo maestro, se crea uno local.
+      // Esto va a permitir usar la app, pero no ver los cambios de otros usuarios.
+      grupoPublico = Group.create();
+      grupoPublico.addMember("everyone", "writer"); // Todos pueden votar
+    }
 
     // Crear la encuesta global de Hogwarts si no existe
     let encuesta = account.root?.encuesta;
@@ -63,5 +73,4 @@ export const JazzAccount = co
     } else if (!account.root.encuesta) {
       account.root.$jazz.set("encuesta", encuesta);
     }
-    console.log({ account: account.toJSON(), encuesta: encuesta?.toJSON() });
   });
