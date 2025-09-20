@@ -54,18 +54,25 @@ export const JazzAccount = co
       grupoPublico.addMember("everyone", "writer"); // Todos pueden votar
     }
 
-    // Crear la encuesta global de Hogwarts si no existe
     let encuesta = account.root?.encuesta;
     if (!encuesta) {
-      encuesta = await Encuesta.upsertUnique({
-        value: {
-          titulo: "¿A qué casa de Hogwarts pertenecés?",
-          descripcion: "¡Votá por tu casa favorita!",
-          votos: [],
-        },
-        unique: { uniqueness: "encuesta-hogwarts" },
-        owner: grupoPublico,
-      });
+      // Buscar la encuesta global
+      encuesta = await Encuesta.loadUnique(
+        "encuesta-hogwarts",
+        grupoPublico.$jazz.id
+      );
+      // Si no se encuentra, se crea una nueva
+      if (!encuesta) {
+        encuesta = await Encuesta.upsertUnique({
+          value: {
+            titulo: "¿A qué casa de Hogwarts pertenecés?",
+            descripcion: "¡Votá por tu casa favorita!",
+            votos: [],
+          },
+          unique: "encuesta-hogwarts",
+          owner: grupoPublico,
+        });
+      }
     }
 
     if (!account.root) {
