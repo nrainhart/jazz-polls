@@ -1,46 +1,34 @@
-# Jazz React starter with Tailwind and Passkey Auth
+# 🏰 Encuesta de Casas de Hogwarts
 
-A minimal starter template for building apps with **[Jazz](https://jazz.tools)**, React, TailwindCSS, and Passkey Auth.
+Demo interactiva de [Jazz](https://jazz.tools), usada en mi charla de Nerdearla Argentina 2025: **Construyendo aplicaciones colaborativas sin morir en el intento**.
 
-## Creating an app
+## Para correrla localmente
 
-Create a new Jazz app.
-```bash
-npx create-jazz-app@latest
-```
-
-## Running locally
-
-Install dependencies:
+Instalá las dependencias:
 
 ```bash
-npm i
-# or
-yarn
+pnpm i
 ```
 
-Then, run the development server:
+Después, levantá la palicación:
 
 ```bash
-npm run dev
-# or
-yarn dev
+pnpm dev
 ```
 
-Open [http://localhost:5173](http://localhost:5173) with your browser to see the result.
+Abrí [http://localhost:5173](http://localhost:5173) en tu navegador para acceder a la app.
 
-## Learning Jazz
+## Sobre Jazz
 
-You can start by playing with the form, adding a new field in [./src/schema.ts](./src/schema.ts),
-and seeing how easy it is to structure your data, and perform basic operations.
+**Jazz** es una base de datos que está pensada para ser usada directamente desde aplicaciones web y mobile, por varios usuarios al mismo tiempo. Te permite construir aplicaciones colaborativas de forma muy fácil, ¡y con muy poco código! Si te interesa saber más, pasate por [https://jazz.tools](https://jazz.tools).
 
-## Questions / problems / feedback
+## Preguntas / problemas / feedback
 
-If you have feedback, let us know on [Discord](https://discord.gg/utDMjHYg42) or open an issue or PR to fix something that seems wrong.
+El [Discord de Jazz](https://discord.gg/utDMjHYg42) es el mejor lugar para hacer preguntas, dejar feedback, o reportar problemas!
 
 
-## Configuration: sync server
+## Configuración: sync server
 
-By default, the React starter app uses [Jazz Cloud](https://jazz.tools/cloud) (`wss://cloud.jazz.tools`) - so cross-device use, invites and collaboration should just work.
+Esta app usa [Jazz Cloud](https://jazz.tools/cloud) (`wss://cloud.jazz.tools`) para sincronizar los cambios entre distintos usuarios.
 
-You can also run a local sync server by running `npx jazz-run sync`, and setting the `sync` parameter of `JazzReactProvider` in [./src/app.tsx](./src/app.tsx) to `{ peer: "ws://localhost:4200" }`.
+Si corrés la aplicación localmente, también podés levantar un sync server local con `npx jazz-run sync`, y modificar el parámetro `sync` de `JazzReactProvider` en [./src/Main.tsx](./src/Main.tsx) a `{ peer: "ws://localhost:4200" }`.
