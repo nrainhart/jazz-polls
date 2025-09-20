@@ -31,4 +31,4 @@ El [Discord de Jazz](https://discord.gg/utDMjHYg42) es el mejor lugar para hacer
 
 Esta app usa [Jazz Cloud](https://jazz.tools/cloud) (`wss://cloud.jazz.tools`) para sincronizar los cambios entre distintos usuarios.
 
-Si corrés la aplicación localmente, también podés levantar un sync server local con `npx jazz-run sync`, y modificar el parámetro `sync` de `JazzReactProvider` en [./src/Main.tsx](./src/main.tsx) a `{ peer: "ws://localhost:4200" }`.
+Si corrés la aplicación localmente, también podés levantar un sync server local con `npx jazz-run sync`, y modificar el parámetro `sync` de `JazzReactProvider` en [./src/main.tsx](./src/main.tsx) a `{ peer: "ws://localhost:4200" }`.
