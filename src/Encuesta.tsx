@@ -86,9 +86,6 @@ export function EncuestaHogwarts({
       </div>
       {/* Clasificación */}
       <div className="bg-gray-50 rounded-lg p-6">
-        <h3 className="text-xl font-semibold mb-4 text-center">
-          Clasificación de Casas
-        </h3>
         <div className="space-y-3">
           {leaderboard.map(({ casa, votos }, index) => {
             const porcentaje = totalVotos > 0 ? (votos / totalVotos) * 100 : 0;
@@ -135,7 +132,7 @@ export function EncuestaHogwarts({
         )}
 
         <h3 className="text-xl font-semibold text-center">
-          {yaVoto ? "Cambiá Tu Voto" : "Elegí Tu Casa"}
+          {yaVoto ? "Cambiá tu voto" : "Elegí tu casa"}
         </h3>
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           {Object.entries(COLORES_CASAS).map(([casa, colores]) => {

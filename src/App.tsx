@@ -26,7 +26,7 @@ function App() {
           />
         )}
 
-        <div className="text-center text-sm text-gray-500 my-8 flex items-center justify-center gap-2">
+        <div className="text-center text-sm text-gray-500 mt-4 mb-8 flex items-center justify-center gap-2">
           <span>Desarrollado con</span>
           <Logo />
           <a className="font-semibold underline" href="https://jazz.tools">

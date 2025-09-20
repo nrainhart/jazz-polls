@@ -60,7 +60,7 @@ export const JazzAccount = co
       encuesta = await Encuesta.upsertUnique({
         value: {
           titulo: "¿A qué casa de Hogwarts pertenecés?",
-          descripcion: "¡Votá por tu casa favorita de Hogwarts!",
+          descripcion: "¡Votá por tu casa favorita!",
           votos: [],
         },
         unique: { uniqueness: "encuesta-hogwarts" },
