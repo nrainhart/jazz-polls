@@ -28,6 +28,8 @@ export function EncuestaHogwarts({
 
   if (!encuesta) return <div>Cargando encuesta...</div>;
 
+  const totalVotos = encuesta.votos.length;
+
   const votoDelUsuario = encuesta.votos.find(
     (voto) => voto.idVotante === idVotante
   );
@@ -49,8 +51,6 @@ export function EncuestaHogwarts({
   const leaderboard = Object.entries(votosPorCasa)
     .sort(([, a], [, b]) => b - a)
     .map(([casa, votos]) => ({ casa: casa as CasaDeHogwarts, votos: votos }));
-
-  const totalVotos = Object.values(votosPorCasa).reduce((a, b) => a + b, 0);
 
   const votar = (casa: CasaDeHogwarts) => {
     if (yaVoto) {
