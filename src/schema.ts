@@ -45,23 +45,24 @@ export const JazzAccount = co
      * Podés usarla para configurar a qué CoValues tiene acceso la cuenta.
      */
 
-    // Los grupos controlan quién puede leer y escribir en los CoValues
-    let grupoPublico = await Group.load(ID_GRUPO_MAESTRO);
-    if (!grupoPublico) {
-      // Si no se encuentra el grupo maestro, se crea uno local.
-      // Esto va a permitir usar la app, pero no ver los cambios de otros usuarios.
-      grupoPublico = Group.create();
-      grupoPublico.addMember("everyone", "writer"); // Todos pueden votar
-    }
+    // Inicializa la cuenta la primera vez que se accede a la app
+    if (!account.$jazz.has("root")) {
+      // Los grupos controlan quién puede leer y escribir en los CoValues
+      let grupoPublico = await Group.load(ID_GRUPO_MAESTRO);
+      if (!grupoPublico) {
+        // Si no se encuentra el grupo maestro, se crea uno local.
+        // Esto va a permitir usar la app, pero no ver los cambios de otros usuarios.
+        grupoPublico = Group.create();
+        grupoPublico.addMember("everyone", "writer"); // Todos pueden votar
+      }
 
-    let encuesta = account.root?.encuesta;
-    if (!encuesta) {
-      // Buscar la encuesta global
-      encuesta = await Encuesta.loadUnique(
+      // Busca la encuesta global
+      let encuesta = await Encuesta.loadUnique(
         "encuesta-hogwarts",
         grupoPublico.$jazz.id
       );
-      // Si no se encuentra, se crea una nueva
+      // Si no se encuentra, se crea una nueva (esto sólo va a
+      // ocurrir cuando el primer usuario acceda a la app)
       if (!encuesta) {
         encuesta = await Encuesta.upsertUnique({
           value: {
@@ -73,11 +74,6 @@ export const JazzAccount = co
           owner: grupoPublico,
         });
       }
-    }
-
-    if (!account.root) {
-      account.$jazz.set("root", { encuesta: encuesta });
-    } else if (!account.root.encuesta) {
-      account.root.$jazz.set("encuesta", encuesta);
+      account.$jazz.set("root", { encuesta });
     }
   });
