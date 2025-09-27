@@ -2,6 +2,8 @@
 
 Demo interactiva de [Jazz](https://jazz.tools), usada en mi charla de Nerdearla Argentina 2025: **Construyendo aplicaciones colaborativas sin morir en el intento**.
 
+Podés probarla en [https://nrainhart.github.io/jazz-polls/](https://nrainhart.github.io/jazz-polls/).
+
 ## Para correrla localmente
 
 Instalá las dependencias:
