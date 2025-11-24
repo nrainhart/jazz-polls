@@ -64,15 +64,17 @@ export const JazzAccount = co
       // Si no se encuentra, se crea una nueva (esto sólo va a
       // ocurrir cuando el primer usuario acceda a la app)
       if (!encuesta.$isLoaded) {
-        encuesta = await Encuesta.upsertUnique({
-          value: {
+        encuesta = await Encuesta.create(
+          {
             titulo: "¿A qué casa de Hogwarts pertenecés?",
             descripcion: "¡Votá por tu casa favorita!",
             votos: [],
           },
-          unique: "encuesta-hogwarts",
-          owner: grupoPublico,
-        });
+          {
+            unique: "encuesta-hogwarts",
+            owner: grupoPublico,
+          }
+        );
       }
       account.$jazz.set("root", { encuesta });
     }
