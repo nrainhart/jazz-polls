@@ -26,7 +26,7 @@ export function EncuestaHogwarts({
     resolve: { votos: { $each: true } },
   });
 
-  if (!encuesta) return <div>Cargando encuesta...</div>;
+  if (!encuesta.$isLoaded) return <div>Cargando encuesta...</div>;
 
   const totalVotos = encuesta.votos.length;
 
@@ -143,6 +143,7 @@ export function EncuestaHogwarts({
 
             return (
               <button
+                type="button"
                 key={casa}
                 onClick={() => votar(casa as CasaDeHogwarts)}
                 className={`p-6 rounded-lg border-2 text-white font-bold text-lg transition-all duration-200 transform hover:scale-105 ${estiloBoton}`}

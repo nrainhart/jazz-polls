@@ -49,7 +49,7 @@ export const JazzAccount = co
     if (!account.$jazz.has("root")) {
       // Los grupos controlan quién puede leer y escribir en los CoValues
       let grupoPublico = await Group.load(ID_GRUPO_MAESTRO);
-      if (!grupoPublico) {
+      if (!grupoPublico.$isLoaded) {
         // Si no se encuentra el grupo maestro, se crea uno local.
         // Esto va a permitir usar la app, pero no ver los cambios de otros usuarios.
         grupoPublico = Group.create();
@@ -63,7 +63,7 @@ export const JazzAccount = co
       );
       // Si no se encuentra, se crea una nueva (esto sólo va a
       // ocurrir cuando el primer usuario acceda a la app)
-      if (!encuesta) {
+      if (!encuesta.$isLoaded) {
         encuesta = await Encuesta.upsertUnique({
           value: {
             titulo: "¿A qué casa de Hogwarts pertenecés?",

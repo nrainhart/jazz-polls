@@ -14,7 +14,7 @@
     "format-and-lint:fix": "biome check . --write"
   },
   "dependencies": {
-    "jazz-tools": "^0.18.16",
+    "jazz-tools": "0.19.3",
     "react": "19.1.0",
     "react-dom": "19.1.0"
   },
